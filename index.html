@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080f1d">
+  <title>UPI Shield | Payment Screening</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#top" aria-label="UPI Shield home">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 20 5.7v5.8c0 5.1-3.3 8.5-8 10-4.7-1.5-8-4.9-8-10V5.7L12 2.5Z"/><path d="m8.4 12.1 2.3 2.3 5-5"/></svg></span>
+        <span><strong>UPI SHIELD</strong><small>PAYMENT SECURITY</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav-list">
+        <a class="nav-item active" href="#dashboard"><span class="nav-icon">▦</span> Dashboard</a>
+        <a class="nav-item" href="#scanner"><span class="nav-icon">⌗</span> Scan receipt</a>
+        <a class="nav-item" href="#history"><span class="nav-icon">◷</span> Scan history</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="api-card"><span class="status-dot" id="apiDot"></span><div><strong id="apiStatus">Checking API…</strong><small id="apiHint">Local FastAPI connection</small></div></div>
+        <div class="sidebar-note">UPI Shield screens screenshots for visible warning indicators. It cannot confirm that money reached a bank account.</div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="top">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <b>Dashboard</b></div>
+        <div class="top-actions"><span class="local-badge"><i></i> LOCAL WORKSPACE</span><div class="avatar">US</div></div>
+      </header>
+
+      <section class="page-heading" id="dashboard">
+        <div><div class="eyebrow">PAYMENT SCREENING CENTER</div><h1>Good day. <span>Stay protected.</span></h1><p>Review UPI payment screenshots and inspect risk indicators in one place.</p></div>
+        <a class="primary-button heading-button" href="#scanner"><span>＋</span> New scan</a>
+      </section>
+
+      <section class="stat-grid" aria-label="Scan statistics">
+        <article class="stat-card"><div class="stat-top"><span>Total scans</span><span class="stat-icon blue">▤</span></div><strong id="totalScans">0</strong><small>Scans in this browser</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Low risk</span><span class="stat-icon green">✓</span></div><strong id="lowScans">0</strong><small>Consistent indicators</small></article>
+        <article class="stat-card"><div class="stat-top"><span>High risk</span><span class="stat-icon red">!</span></div><strong id="highScans">0</strong><small>Strong warning indicators</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Needs review</span><span class="stat-icon amber">◷</span></div><strong id="reviewScans">0</strong><small>Insufficient evidence</small></article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel scanner-panel" id="scanner">
+          <div class="panel-heading"><div><div class="eyebrow">NEW ANALYSIS</div><h2>Scan a payment screenshot</h2><p>Upload JPG, PNG or WEBP files up to 10 MB each.</p></div><span class="step-chip">STEP 01</span></div>
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Choose payment screenshots">
+            <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple hidden>
+            <div class="upload-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 16.5v2A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-2"/></svg></div>
+            <h3>Drop your screenshots here</h3><p>or <button class="text-button" id="browseButton" type="button">browse files</button> from your device</p>
+            <div class="file-types"><span>JPG</span><span>PNG</span><span>WEBP</span><span>MAX 10 MB</span></div>
+          </div>
+          <div class="selected-files" id="selectedFiles" hidden></div>
+          <div class="scanner-actions"><p>For best results, upload a clear, un-cropped receipt.</p><button class="primary-button" id="analyzeButton" disabled>Analyze screenshots <span>→</span></button></div>
+          <div class="progress-wrap" id="progressWrap" hidden><div class="progress-label"><span id="progressText">Preparing scan…</span><span id="progressCount">0/0</span></div><div class="progress-track"><div id="progressBar"></div></div></div>
+          <div class="error-message" id="errorMessage" role="alert" hidden></div>
+        </div>
+
+        <aside class="panel guide-panel">
+          <div class="eyebrow">HOW IT WORKS</div><h2>Three simple steps</h2>
+          <div class="guide-step"><span class="guide-number">01</span><div><strong>Upload receipt</strong><p>Select a payment screenshot from your device.</p></div></div>
+          <div class="guide-step"><span class="guide-number">02</span><div><strong>Automated screening</strong><p>OCR, visible marker checks and basic image forensics run locally.</p></div></div>
+          <div class="guide-step"><span class="guide-number">03</span><div><strong>Review the report</strong><p>Inspect the score, extracted fields and reasons before making a decision.</p></div></div>
+          <div class="safety-callout"><span>ⓘ</span><p><b>Important:</b> A screenshot is not proof of payment. Confirm the transaction in your bank or UPI app.</p></div>
+        </aside>
+      </section>
+
+      <section class="panel results-panel" id="resultsPanel" hidden>
+        <div class="panel-heading"><div><div class="eyebrow">SCREENING OUTPUT</div><h2>Analysis report</h2><p id="resultSubtitle">Latest screenshot analysis</p></div><button class="ghost-button" id="closeResults">Close report</button></div>
+        <div id="resultsList" class="results-list"></div>
+      </section>
+
+      <section class="panel history-panel" id="history">
+        <div class="panel-heading"><div><div class="eyebrow">RECENT ACTIVITY</div><h2>Scan history</h2><p>Recent scans saved in this browser only.</p></div><button class="ghost-button" id="clearHistory">Clear history</button></div>
+        <div class="table-wrap"><table><thead><tr><th>FILE</th><th>APP</th><th>DATE</th><th>RISK</th><th>RESULT</th></tr></thead><tbody id="historyBody"><tr class="empty-row"><td colspan="5">No scans yet. Upload a screenshot to get started.</td></tr></tbody></table></div>
+      </section>
+      <footer class="footer"><span>© <span id="year"></span> UPI Shield</span><span>Automated screening · Not bank verification</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
